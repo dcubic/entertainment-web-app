@@ -1,0 +1,13 @@
+.searchBarContainer {
+  display: flex;
+  
+}
+
+.searchInput {
+  padding-bottom: 14px;
+  box-sizing: content-box;
+}
+
+.searchInput:focus {
+  border-bottom: ;
+}

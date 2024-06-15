@@ -1,4 +1,4 @@
-import NavBar from '../../NavBar.tsx';
+import NavBar from '../../navbar/NavBar.tsx'
 import { Outlet } from 'react-router-dom';
 
 function RootLayout() {
