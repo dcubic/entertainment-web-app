@@ -1,0 +1,21 @@
+.appContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  /* background-color: var(--noire); */
+  background-color: white;
+}
+
+.navBarContainer {
+  height: 56px;
+  background-color: red;
+}
+
+.navBar {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  top: 0;
+  left: 0;
+  background-color: blue;
+}
