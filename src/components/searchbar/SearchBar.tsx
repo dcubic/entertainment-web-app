@@ -5,7 +5,7 @@ import SearchIcon from "../../assets/icons/icon-search.svg?react";
 import styles from "./SearchBar.module.css";
 
 interface SearchBarProps {
-  nameString: string;
+  nameString: "TV Series" | "movies";
   searchString: string;
   handleSearchBarUpdate: (value: ChangeEvent<HTMLInputElement>) => void;
 }
@@ -17,14 +17,13 @@ function SearchBar({
 }: SearchBarProps) {
   return (
     <div className={styles.searchBarContainer}>
-      <SearchIcon />
+      <SearchIcon className={styles.searchIcon} />
       <input
         placeholder={`Search for ${nameString}`}
         onChange={handleSearchBarUpdate}
         className={styles.searchInput}
-      >
-        {searchString}
-      </input>
+        value={searchString}
+      />
     </div>
   );
 }

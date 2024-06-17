@@ -7,7 +7,7 @@
   --midnight-blue: rgb(22, 29, 47);
 }
 
-@font-face {
+/* @font-face {
   font-family: 'Outfit Light';
   src: local('Outfit');
   font-weight: 300;
@@ -17,7 +17,7 @@
   font-family: 'Outfit Medium';
   src: local('Outfit');
   font-weight: 500;
-}
+} */
 
 main, h1, p, body {
   margin: 0;
