@@ -4,6 +4,41 @@
 
 .gridContainer {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 16px;
+}
+
+.visualContainer {
+  position: relative;
+}
+
+.thumbnail {
+  width: 100%;
+}
+
+.bookmarkIcon {
+  position: absolute;
+}
+
+.playIcon {
+
+}
+
+.captionContainer {
+  
+}
+
+.captionText {
+  font-family: 'Outfit';
+  
+  color: white;
+  opacity: 0.5;
+}
+
+.dot {
+
+}
+
+.mediaTitle {
+
 }

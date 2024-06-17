@@ -1,8 +1,9 @@
 import { useParams } from "react-router-dom";
-import data from "../../../assets/data/data.json";
+import data from '../../../assets/thumbnails/data.json';
 
 import { ChangeEvent, useState } from "react";
 import SearchBar from "../../searchbar/SearchBar";
+import MediaList from '../../medialist/MediaList.tsx';
 
 enum MediaType {
   movies = "movies",
@@ -33,6 +34,7 @@ function SpecificMediaPage() {
         searchString={searchString}
         handleSearchBarUpdate={handleSearchBarUpdate}
       />
+      <MediaList title={'Pizza'} />
     </div>
   );
 }
