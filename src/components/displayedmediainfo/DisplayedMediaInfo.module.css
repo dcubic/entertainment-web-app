@@ -1,0 +1,48 @@
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.overlay {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 24px;
+}
+
+.captionContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.captionText {
+  font-family: 'Outfit';
+  font-size: 11px;
+  font-weight: 300;
+  color: white;
+  opacity: 0.5;
+}
+
+.dot {
+  width: 2px;
+  height: 2px;
+  margin: 6px;
+  border-radius: 50%;
+  background-color: white;
+  opacity: 0.5;
+}
+
+.categoryContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}
+
+.mediaTitle {
+  color: white;
+  font-size: 14px;
+  font-family: 'Outfit';
+  font-weight: 500;
+}

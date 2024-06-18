@@ -1,0 +1,10 @@
+.trendingContainer {
+  padding: 16px;
+}
+
+.title {
+  color: white;
+  font-size: 20px;
+  font-family: 'Outfit';
+  font-weight: 300;
+}

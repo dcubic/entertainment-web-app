@@ -5,19 +5,8 @@
   --noire: rgb(16, 20, 30);
   --pale-blue: rgb(90, 105, 143);
   --midnight-blue: rgb(22, 29, 47);
+  --transluscent-midnight-blue: rgba(22, 29, 47, 0.5);
 }
-
-/* @font-face {
-  font-family: 'Outfit Light';
-  src: local('Outfit');
-  font-weight: 300;
-}
-
-@font-face {
-  font-family: 'Outfit Medium';
-  src: local('Outfit');
-  font-weight: 500;
-} */
 
 main, h1, p, body {
   margin: 0;

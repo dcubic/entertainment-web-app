@@ -1,0 +1,82 @@
+.visualContainer {
+  position: relative;
+}
+
+.thumbnail {
+  border-radius: 8px;
+  width: 100%;
+}
+
+.mediaContainer:hover .thumbnail {
+  filter: brightness(0.5);
+}
+
+.bookmarkContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  background-color: var(--transluscent-midnight-blue);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.bookmarkIcon path {
+  fill-opacity: 1;
+}
+
+.activeBookmark path {
+  background-color: white;
+}
+
+.bookmarkContainer:hover {
+  background-color: white;
+}
+
+.bookmarkContainer:hover .bookmarkIcon path {
+  fill: white;
+  stroke: var(--midnight-blue);
+}
+
+.playContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 8px 8px 8px 8px;
+  background-color: var(--transluscent-midnight-blue);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.playContainer:hover {
+  background-color: white;
+}
+
+.playContainer:hover .playIcon path {
+  fill: var(--midnight-blue);
+}
+
+.playText {
+  color: white;
+  font-size: 14px;
+  font-family: 'Outfit';
+  font-weight: 500;
+}
+
+.playContainer:hover .playText {
+  color: var(--midnight-blue);
+}
+
+.playIcon {
+  width: 24px;
+  height: 24px;
+}

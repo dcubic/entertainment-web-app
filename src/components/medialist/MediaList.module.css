@@ -1,44 +1,22 @@
 .title {
-
+  color: white;
+  font-size: 20px;
+  font-family: 'Outfit';
+  font-weight: 300;
+  padding: 0 16px;
 }
 
 .gridContainer {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-rows: repeat(autofit);
+  grid-template-columns: 1fr 1fr;
+  /* grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); */
   gap: 16px;
+  padding: 16px;
 }
 
-.visualContainer {
-  position: relative;
-}
-
-.thumbnail {
-  width: 100%;
-}
-
-.bookmarkIcon {
-  position: absolute;
-}
-
-.playIcon {
-
-}
-
-.captionContainer {
-  
-}
-
-.captionText {
-  font-family: 'Outfit';
-  
-  color: white;
-  opacity: 0.5;
-}
-
-.dot {
-
-}
-
-.mediaTitle {
-
+.mediaContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }

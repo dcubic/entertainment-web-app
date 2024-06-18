@@ -1,30 +1,36 @@
 import { useParams } from "react-router-dom";
-import data from '../../../assets/thumbnails/data.json';
+import jsonData from "../../../assets/thumbnails/data.json";
 
 import { ChangeEvent, useState } from "react";
 import SearchBar from "../../searchbar/SearchBar";
-import MediaList from '../../medialist/MediaList.tsx';
+import MediaList from "../../medialist/MediaList.tsx";
+import { MediaObject } from "../../../assets/thumbnails/MediaObject.ts";
 
 enum MediaType {
   movies = "movies",
   series = "series",
 }
 
-// Maybe just filter on pull from the server to prevent re-executions of the filter function?
-// probably doesn't matter in this case
-
 function SpecificMediaPage() {
   const [searchString, setSearchString] = useState("");
+  function handleSearchBarUpdate(event: ChangeEvent<HTMLInputElement>) {
+    setSearchString(event.target.value);
+  }
 
   const { type } = useParams<{ type: MediaType }>();
   const requiredCategory = type === MediaType.movies ? "Movie" : "TV Series";
+  const data = jsonData as MediaObject[];
   const relevantMedia = data.filter(
-    (media) => media.category === requiredCategory
+    (media) =>
+      media.category === requiredCategory &&
+      (searchString === "" || media.title.search(searchString) !== -1)
   );
-  const nameString = type === MediaType.movies ? "movies" : "TV Series";
+  const nameString = type === MediaType.movies ? "movies" : "TV series";
 
-  function handleSearchBarUpdate(event: ChangeEvent<HTMLInputElement>) {
-    setSearchString(event.target.value);
+  function determineTitleString(): string {
+    if (searchString === '') return type === MediaType.movies ? "Movies" : "TV Series";
+
+    return `Found ${relevantMedia.length} results for \'${searchString}\'`
   }
 
   return (
@@ -34,7 +40,7 @@ function SpecificMediaPage() {
         searchString={searchString}
         handleSearchBarUpdate={handleSearchBarUpdate}
       />
-      <MediaList title={'Pizza'} />
+      <MediaList title={determineTitleString()} data={relevantMedia}/>
     </div>
   );
 }

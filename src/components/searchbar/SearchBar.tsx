@@ -5,7 +5,7 @@ import SearchIcon from "../../assets/icons/icon-search.svg?react";
 import styles from "./SearchBar.module.css";
 
 interface SearchBarProps {
-  nameString: "TV Series" | "movies";
+  nameString: string;
   searchString: string;
   handleSearchBarUpdate: (value: ChangeEvent<HTMLInputElement>) => void;
 }

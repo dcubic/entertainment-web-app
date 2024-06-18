@@ -1,43 +1,33 @@
 import styles from "./MediaList.module.css";
-import data from '../../assets/thumbnails/data.json';
-import EmptyBookmarkIcon from "../../assets/icons/icon-bookmark-empty.svg?react";
-import FullBookmarkIcon from "../../assets/icons/icon-bookmark-full.svg?react";
+import visualContainerStyles from '../sharedcss/VisualContainer.module.css';
+import { MediaObject } from '../../assets/thumbnails/MediaObject';
+import BookmarkIcon from "../../assets/icons/icon-bookmark-empty.svg?react";
 import PlayIcon from "../../assets/icons/icon-play.svg?react";
-import MovieIcon from "../../assets/icons/icon-category-movie.svg?react";
-import TvIcon from "../../assets/icons/icon-category-tv.svg?react";
+import DisplayedMediaInfo from "../displayedmediainfo/DisplayedMediaInfo";
 
 interface MediaListProps {
-  title: string;
+  title: string,
+  data: MediaObject[]
 }
 
-function MediaList({ title }: MediaListProps) {
+function MediaList({ title, data }: MediaListProps) {
   return (
     <div>
       <h1 className={styles.title}>{title}</h1>
       <div className={styles.gridContainer}>
-        {data.map((media) => (
-          <div>
-            <div className={styles.visualContainer}>
-              <img src={media.thumbnail.regular.small} className={styles.thumbnail}/> { /* Will have to modify this to accomodate size variants */ }
-              <EmptyBookmarkIcon className={styles.bookmarkIcon}/>
-              <FullBookmarkIcon className={styles.bookmarkIcon}/>
-              <PlayIcon className={styles.playIcon}/>
-            </div>
-            <div className={styles.captionContainer}>
-              <p className={styles.captionText}>{media.year}</p>
-              <div className={styles.dot} />
-              <div>
-                {media.category === "Movie" ? (
-                  <MovieIcon className={styles.categoryIcon} />
-                ) : (
-                  <TvIcon className={styles.categoryIcon} />
-                )}
-                <p className={styles.captionText}>{media.category}</p>
+        {data.map((media, index) => (
+          <div key={index} className={visualContainerStyles.mediaContainer}>
+            <div className={visualContainerStyles.visualContainer}>
+              <img src={media.thumbnail.regular.small} className={visualContainerStyles.thumbnail} /> { /* Will have to modify this to accomodate size variants */ }
+              <div className={visualContainerStyles.bookmarkContainer}>
+                <BookmarkIcon className={visualContainerStyles.bookmarkIcon}/>
               </div>
-              <div className={styles.dot} />
-              <p className={styles.captionText}>{media.rating}</p>
+              <div className={visualContainerStyles.playContainer}>
+                <PlayIcon className={visualContainerStyles.playIcon}/>
+                <p className={visualContainerStyles.playText}>Play</p>
+              </div>
             </div>
-            <p className={styles.mediaTitle}>{media.title}</p>
+            <DisplayedMediaInfo media={media} isWithin={false} />
           </div>
         ))}
       </div>
