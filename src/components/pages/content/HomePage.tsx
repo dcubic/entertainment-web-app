@@ -25,7 +25,7 @@ function HomePage() {
     if (searchString === '') return 'Recommended for you';
 
     if (relevantMedia.length === 1) {
-      return `Found ${relevantMedia.length} result for \'${searchString}\'`;
+      return `Found 1 result for \'${searchString}\'`;
   }
     return `Found ${relevantMedia.length} results for \'${searchString}\'`;
   }
