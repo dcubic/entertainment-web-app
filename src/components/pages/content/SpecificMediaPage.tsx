@@ -30,6 +30,9 @@ function SpecificMediaPage() {
   function determineTitleString(): string {
     if (searchString === '') return type === MediaType.movies ? "Movies" : "TV Series";
 
+    if (relevantMedia.length === 1) {
+      return `Found 1 result for \'${searchString}\'`
+    }
     return `Found ${relevantMedia.length} results for \'${searchString}\'`
   }
 

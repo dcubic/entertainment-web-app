@@ -4,6 +4,7 @@ import MediaList from "../../medialist/MediaList";
 import TrendingContent from '../../trendingcontent/TrendingContent';
 import jsonData from "../../../assets/thumbnails/data.json";
 import { MediaObject } from "../../../assets/thumbnails/MediaObject";
+import styles from './HomePage.module.css';
 
 // TODO extend Searchable class that has both state and handleSearchBarUpdate
 function HomePage() {
@@ -23,6 +24,9 @@ function HomePage() {
   function determineTitleString(): string {
     if (searchString === '') return 'Recommended for you';
 
+    if (relevantMedia.length === 1) {
+      return `Found ${relevantMedia.length} result for \'${searchString}\'`;
+  }
     return `Found ${relevantMedia.length} results for \'${searchString}\'`;
   }
   const nameString = "movies or TV series";
@@ -33,8 +37,10 @@ function HomePage() {
         searchString={searchString}
         handleSearchBarUpdate={handleSearchBarUpdate}
       />
-      <TrendingContent data={trendingMedia} />
-      <MediaList title={determineTitleString()} data={relevantMedia} />
+      <div className={styles.contentContainer}>
+        <TrendingContent data={trendingMedia} />
+        <MediaList title={determineTitleString()} data={relevantMedia} />
+      </div>
     </div>
   );
 }

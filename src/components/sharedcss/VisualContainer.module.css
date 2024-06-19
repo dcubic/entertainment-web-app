@@ -42,6 +42,10 @@
   stroke: var(--midnight-blue);
 }
 
+.visualContainer:hover .playContainer {
+  opacity: 1;
+}
+
 .playContainer {
   position: absolute;
   top: 50%;
@@ -55,6 +59,8 @@
   gap: 8px;
   border-radius: 20px;
   cursor: pointer;
+  opacity: 0;
+  z-index: 1;
 }
 
 .playContainer:hover {

@@ -11,3 +11,16 @@
 main, h1, p, body {
   margin: 0;
 }
+
+html {
+  /* overflow: hidden; */
+}
+
+main {
+  width: 100%;
+}
+
+#root {
+  width: 100%;
+  overflow: hidden;
+}

@@ -1,4 +1,3 @@
-import styles from './App.module.css';
 import { RouterProvider, createBrowserRouter, Navigate } from 'react-router-dom';
 import RootLayout from './components/pages/layouts/RootLayout';
 import HomePage from './components/pages/content/HomePage';
