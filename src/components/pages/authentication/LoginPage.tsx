@@ -3,17 +3,7 @@ import styles from "./Authentication.module.css";
 import LogoIcon from "../../../assets/icons/logo.svg?react";
 import { ChangeEvent, FormEvent, useState } from "react";
 import EmailValidator from "email-validator";
-
-enum InputIdentifier {
-  EmailAddress = "emailAddress",
-  Password = "password",
-}
-
-enum EmailState {
-  Empty,
-  Invalid,
-  Valid,
-}
+import { EmailState, InputIdentifier } from "./authUtils";
 
 function LoginPage() {
   const [inputText, setInputText] = useState({
@@ -31,15 +21,31 @@ function LoginPage() {
       ...previousState,
       [identifier]: event.target.value,
     }));
+
+    if (identifier === InputIdentifier.EmailAddress) {
+      setEmailState(EmailState.Valid);
+    } else if (identifier === InputIdentifier.Password) {
+      setIsEmptyPasswordError(false);
+    }
   }
 
-  const emailErrorMessage = () => {
-    if (emailState === EmailState.Empty) {
-      return "Can't be empty";
-    } else if (emailState === EmailState.Invalid) {
+  const credentialsErrorMessage = () => {
+    if (emailState === EmailState.Invalid) {
       return "Enter a valid email";
     } else {
+      return ""; // TODO this will handle credentials as well
+    }
+  };
+
+  const emptyErrorMessage = (identifier: InputIdentifier) => {
+    if (identifier === InputIdentifier.EmailAddress) {
+      if (emailState === EmailState.Empty) return "Can't be empty";
       return "";
+    } else if (identifier === InputIdentifier.Password) {
+      if (isEmptyPasswordError) return "Can't be empty";
+      return "";
+    } else {
+      return ""
     }
   };
 
@@ -66,6 +72,8 @@ function LoginPage() {
       inputText.password === ""
     )
       return;
+
+    // TODO actually log in
   }
 
   return (
@@ -74,25 +82,33 @@ function LoginPage() {
       <form className={styles.form} onSubmit={handleLogin}>
         <h1 className={styles.title}>Login</h1>
         <div className={styles.inputsContainer}>
-          {/* <p className={styles.credentialErrorText}>Incorrect Credentials</p> */}
           <div className={styles.inputContainer}>
             <input
               className={styles.input}
-              placeholder={InputIdentifier.EmailAddress}
+              placeholder={'Email address'}
               value={inputText.emailAddress}
               onChange={(event) =>
                 updateInput(event, InputIdentifier.EmailAddress)
               }
             />
-            <p className={styles.inputErrorText}>{emailErrorMessage()}</p>
+            <p className={styles.inputErrorText}>{credentialsErrorMessage()}</p>
+            <p className={styles.emptyErrorText}>
+              {emptyErrorMessage(InputIdentifier.EmailAddress)}
+            </p>
           </div>
-
-          <input
-            className={styles.input}
-            placeholder={InputIdentifier.Password}
-            value={inputText.password}
-            onChange={(event) => updateInput(event, InputIdentifier.Password)}
-          />
+          <div className={styles.inputContainer}>
+            <input
+              className={styles.input}
+              placeholder={InputIdentifier.Password}
+              value={inputText.password}
+              onChange={(event) =>
+                updateInput(event, InputIdentifier.Password)
+              }
+            />
+            <p className={styles.emptyErrorText}>
+              {emptyErrorMessage(InputIdentifier.Password)}
+            </p>
+          </div>
         </div>
         <div className={styles.clickablesContainer}>
           <button className={styles.button}>Login to your account</button>

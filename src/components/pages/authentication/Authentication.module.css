@@ -44,7 +44,7 @@
   padding-right: 16px;
 }
 
-.inputErrorText {
+.emptyErrorText {
   position: absolute;
   top: 4px;
   right: 16px;
@@ -52,15 +52,21 @@
   font-size: 13px;
   font-family: 'Outfit';
   font-weight: 300;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: none;
 }
 
-.credentialErrorText {
+.inputErrorText {
+  position: absolute;
   font-family: 'Outfit';
   font-weight: 300;
-  font-size: 15px;
+  font-size: 13px;
   color: var(--orange-red);
-  margin-bottom: -12px;
-  margin-top: -12px;
+  left: 0;
+  top: -26px;
 }
 
 .input {
@@ -76,6 +82,9 @@
   box-shadow: 0 1px 0 -0.5px var(--pale-blue);
   caret-color: var(--orange-red);
   padding-bottom: 17px;
+}
+
+.input::placeholder {
   text-transform: capitalize;
 }
 
@@ -98,11 +107,28 @@
   cursor: pointer;
 }
 
+.button:hover {
+  background-color: white;
+  color: var(--midnight-blue);
+}
+
+.button:active {
+  background-color: var(--orange-red);
+  color: white;
+}
+
 .modeSwapContainer {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
   gap: 9px;
+}
+
+.text {
+  color: white;
+  font-size: 15px;
+  font-weight: 300;
 }
 
 .linkText {
