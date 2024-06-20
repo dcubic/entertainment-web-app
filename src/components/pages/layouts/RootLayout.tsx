@@ -1,4 +1,4 @@
-import styles from "./RootLayout.module.css";
+import styles from "./Layout.module.css";
 import NavBar from "../../navbar/NavBar.tsx";
 import { Outlet } from "react-router-dom";
 

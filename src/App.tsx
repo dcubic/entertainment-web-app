@@ -8,6 +8,8 @@ import HomePage from "./components/pages/content/HomePage";
 import SpecificMediaPage from "./components/pages/content/SpecificMediaPage";
 import BookmarksPage from "./components/pages/content/BookmarksPage";
 import LoginPage from "./components/pages/authentication/LoginPage";
+import SignupPage from "./components/pages/authentication/SignupPage";
+import AuthLayout from "./components/pages/layouts/AuthLayout";
 
 const router = createBrowserRouter([
   {
@@ -18,9 +20,16 @@ const router = createBrowserRouter([
       { path: "/media", element: <HomePage /> },
       { path: "/media/:type", element: <SpecificMediaPage /> },
       { path: "media/bookmarks", element: <BookmarksPage /> },
-    ],
+    ]
   },
-  { path: "/login", element: <LoginPage /> },
+  {
+    path: '/',
+    element: <AuthLayout />,
+    children: [
+      { path: "/login", element: <LoginPage /> },
+      { path: "/signup", element: <SignupPage /> },
+    ]
+  }
 ]);
 
 function App() {
