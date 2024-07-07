@@ -4,8 +4,10 @@ import MediaList from "../../medialist/MediaList";
 import styles from "./Page.module.css";
 import { InitialData } from "./contentUtils";
 import { useOutletContext } from "react-router-dom";
+import { useBookmarkManager } from "../../../hooks/useBookmarkManager";
 
 function BookmarksPage() {
+  const { isBookmarked, toggleBookmark } = useBookmarkManager();
   const [searchString, setSearchString] = useState("");
   function handleSearchBarUpdate(event: ChangeEvent<HTMLInputElement>) {
     setSearchString(event.target.value);
@@ -15,11 +17,13 @@ function BookmarksPage() {
   const relevantSeries = mediaData.filter(
     (media) =>
       media.category === "TV Series" &&
+      isBookmarked(media.title) &&
       (searchString === "" || media.title.search(searchString) !== -1)
   );
   const relevantMovies = mediaData.filter(
     (media) =>
       media.category === "Movie" &&
+      isBookmarked(media.title) &&
       (searchString === "" || media.title.search(searchString) !== -1)
   );
 
@@ -47,8 +51,18 @@ function BookmarksPage() {
         searchString={searchString}
         handleSearchBarUpdate={handleSearchBarUpdate}
       />
-      <MediaList title={determineMoviesTitle()} data={relevantMovies} includeOnlyBookmarked={true} />
-      <MediaList title={determineSeriesTitle()} data={relevantSeries} includeOnlyBookmarked={true} />
+      <MediaList
+        title={determineMoviesTitle()}
+        data={relevantMovies}
+        isBookmarked={isBookmarked}
+        toggleBookmark={toggleBookmark}
+      />
+      <MediaList
+        title={determineSeriesTitle()}
+        data={relevantSeries}
+        isBookmarked={isBookmarked}
+        toggleBookmark={toggleBookmark}
+      />
     </div>
   );
 }

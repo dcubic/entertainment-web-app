@@ -6,7 +6,7 @@ import { refreshBookmarks } from "../services/apis/bookmarksApi";
 export const initialDataLoader = async () => {
   if (!isAuthenticated()) throw redirect("/login");
 
-  const [ mediaData, refreshedBookmarks ] = await Promise.all([
+  const [ mediaData, _ ] = await Promise.all([
     fetchMediaData(),
     refreshBookmarks()
   ])

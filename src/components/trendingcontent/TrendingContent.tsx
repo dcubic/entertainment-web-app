@@ -9,7 +9,6 @@ import visualContainerStyles from "../sharedcss/VisualContainer.module.css";
 import styles from "./TrendingContent.module.css";
 import Slider, { Settings } from "react-slick";
 import Bookmark from "../bookmark/Bookmark";
-import { useBookmarkManager } from "../../hooks/useBookmarkManager";
 import { useWindowDimensions } from "../../hooks/useWindowDimensions";
 import {
   MOBILE_SLIDE_COUNT,
@@ -19,10 +18,11 @@ import {
 
 interface TrendingContentProps {
   data: MediaObject[];
+  isBookmarked: (title: string) => boolean;
+  toggleBookmark: (title: string) => void;
 }
 
-function TrendingContent({ data }: TrendingContentProps) {
-  const { isBookmarked, toggleBookmark } = useBookmarkManager();
+function TrendingContent({ data, isBookmarked, toggleBookmark }: TrendingContentProps) {
   const windowDimensions = useWindowDimensions();
 
   const sliderSettings: Settings = {

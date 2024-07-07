@@ -4,29 +4,24 @@ import { MediaObject } from "../../assets/thumbnails/MediaObject";
 import PlayIcon from "../../assets/icons/icon-play.svg?react";
 import DisplayedMediaInfo from "../displayedmediainfo/DisplayedMediaInfo";
 import Bookmark from "../bookmark/Bookmark";
-import { useBookmarkManager } from "../../hooks/useBookmarkManager";
 import { useWindowDimensions } from "../../hooks/useWindowDimensions";
 import { MOBILE_TABLET_WIDTH_THRESHOLD, TABLET_DESKTOP_WIDTH_THRESHOLD } from "../../utils/constants";
 
 interface MediaListProps {
   title: string;
   data: MediaObject[];
-  includeOnlyBookmarked: boolean;
+  isBookmarked: (title: string) => boolean,
+  toggleBookmark: (title: string) => void
 }
 
-function MediaList({ title, data, includeOnlyBookmarked }: MediaListProps) {
+function MediaList({ title, data, isBookmarked, toggleBookmark }: MediaListProps) {
   const windowDimensions = useWindowDimensions();
-  const { isBookmarked, toggleBookmark } = useBookmarkManager();
-
-  const filteredData = data.filter((media) =>
-    includeOnlyBookmarked ? isBookmarked(media.title) : true
-  );
 
   return (
     <div>
       <h1 className={styles.title}>{title}</h1>
       <div className={styles.gridContainer}>
-        {filteredData.map((media, index) => (
+        {data.map((media, index) => (
           <div key={index} className={visualContainerStyles.mediaContainer}>
             <div className={visualContainerStyles.visualContainer}>
               <img

@@ -1,11 +1,10 @@
 import { useOutletContext, useParams } from "react-router-dom";
 import { ChangeEvent, useEffect, useState } from "react";
-import jsonData from "../../../assets/thumbnails/data.json";
 import pageStyles from "./Page.module.css";
 import SearchBar from "../../searchbar/SearchBar";
 import MediaList from "../../medialist/MediaList.tsx";
-import { MediaObject } from "../../../assets/thumbnails/MediaObject.ts";
 import { InitialData } from "./contentUtils.ts";
+import { useBookmarkManager } from "../../../hooks/useBookmarkManager.ts";
 
 enum MediaType {
   movies = "movies",
@@ -15,6 +14,7 @@ enum MediaType {
 function SpecificMediaPage() {
   const { type } = useParams<{ type: MediaType }>();
   const [searchString, setSearchString] = useState("");
+  const { isBookmarked, toggleBookmark } = useBookmarkManager();
   const { mediaData } = useOutletContext() as InitialData;
 
   useEffect(() => {
@@ -25,8 +25,8 @@ function SpecificMediaPage() {
   }
 
   const requiredCategory = type === MediaType.movies ? "Movie" : "TV Series";
-  const data = jsonData as MediaObject[];
-  const relevantMedia = data.filter(
+  
+  const relevantMedia = mediaData.filter(
     (media) =>
       media.category === requiredCategory &&
       (searchString === "" || media.title.search(searchString) !== -1)
@@ -53,7 +53,8 @@ function SpecificMediaPage() {
       <MediaList
         title={determineTitleString()}
         data={relevantMedia}
-        includeOnlyBookmarked={false}
+        isBookmarked={isBookmarked}
+        toggleBookmark={toggleBookmark}
       />
     </div>
   );
