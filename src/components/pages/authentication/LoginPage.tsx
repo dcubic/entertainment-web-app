@@ -12,6 +12,7 @@ function LoginPage() {
     emailAddress: "",
     password: "",
   });
+  const [hasFailedLogin, setHasFailedLogin] = useState(false);
   const [emailState, setEmailState] = useState(EmailState.Valid);
   const [isEmptyPasswordError, setIsEmptyPasswordError] = useState(false);
 
@@ -34,6 +35,8 @@ function LoginPage() {
   const credentialsErrorMessage = () => {
     if (emailState === EmailState.Invalid) {
       return "Enter a valid email";
+    } else if (hasFailedLogin) {
+      return "Invalid Credentials"
     } else {
       return ""; // TODO this will handle credentials as well
     }
@@ -53,6 +56,7 @@ function LoginPage() {
 
   async function handleLogin(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setHasFailedLogin(false);
 
     if (inputText.emailAddress === "") {
       setEmailState(EmailState.Empty);
@@ -83,7 +87,7 @@ function LoginPage() {
       );
 
       if (!loginResult.success) {
-        console.log("TODO")
+        setHasFailedLogin(true);
       } else {
         navigate('/media')
       }
@@ -117,6 +121,7 @@ function LoginPage() {
               className={styles.input}
               placeholder={InputIdentifier.Password}
               value={inputText.password}
+              type={'password'}
               onChange={(event) => updateInput(event, InputIdentifier.Password)}
             />
             <p className={styles.emptyErrorText}>

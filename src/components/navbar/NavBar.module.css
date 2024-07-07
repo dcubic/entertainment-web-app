@@ -26,6 +26,10 @@
   align-items: center;
 }
 
+.navLink:hover path {
+  fill: var(--orange-red);
+}
+
 .activeLink {
   width: 16px;
   height: auto;
@@ -43,4 +47,58 @@
 .avatarImage {
   width: 24px;
   height: 24px;
+}
+
+@media only screen and (min-width: 768px) {
+  .navBarContainer {
+    box-sizing: content-box;
+    margin: 23px 25px 0 25px;
+    padding: 24px 24px;
+    border-radius: 10px;
+  }
+
+  .logo {
+    max-width: 30px;
+    max-height: 26px;
+  }
+
+  .navLinkContainer {
+    gap: 32px;
+  }
+
+  .activeLink {
+    width: 20px;
+  }
+
+  .inactiveLink {
+    width: 20px;
+  }
+
+  .avatarImage {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .navBarContainer {
+    top: 0;
+    position: fixed;
+    flex-direction: column;
+    height: 100vh;
+    padding: 32px;
+    max-height: calc(100vh - 125px);
+    z-index: 100;
+    margin-top: 32px;
+    margin-left: 32px;
+  }
+
+  .navLinkContainer {
+    flex-direction: column;
+  }
+
+  .avatarImage {
+    width: 40px;
+    height: 40px;
+  }
 }

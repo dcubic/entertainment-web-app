@@ -3,6 +3,7 @@
   flex-direction: row;
   padding: 24px 16px;
   gap: 16px;
+  margin-top: 29px;
 }
 
 .searchIcon {
@@ -17,7 +18,7 @@
   box-sizing: border-box;
   padding-left: 0;
   caret-color: var(--orange-red);
-  font-family: 'Outfit';
+  font-family: "Outfit";
   font-weight: 300;
   font-size: 16px;
   background-color: var(--noire);
@@ -27,4 +28,19 @@
 .searchInput:focus {
   box-shadow: 0 1px 0 0 var(--pale-blue);
   /* border-bottom: 1px solid var(--pale-blue); */
+}
+
+@media only screen and (min-width: 768px) {
+  .searchBarContainer {
+    padding: 32px 25px;
+  }
+
+  .searchIcon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .searchInput {
+    font-size: 24px;
+  }
 }

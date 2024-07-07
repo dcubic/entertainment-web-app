@@ -1,3 +1,17 @@
 .pageContainer {
   min-height: calc(100vh - 60px);
+  max-width: 100vw;
+}
+
+@media only screen and (min-width: 768px) {
+  .pageContainer {
+    min-height: calc(100vh - 103px);
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .pageContainer {
+    margin-left: 145px;
+    min-height: 100vh;
+  }
 }

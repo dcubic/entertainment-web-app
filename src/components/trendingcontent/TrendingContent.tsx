@@ -4,32 +4,40 @@ import "./slickOverrides.css";
 
 import { MediaObject } from "../../assets/thumbnails/MediaObject";
 import DisplayedMediaInfo from "../displayedmediainfo/DisplayedMediaInfo";
-import BookmarkIcon from "../../assets/icons/icon-bookmark-empty.svg?react";
 import PlayIcon from "../../assets/icons/icon-play.svg?react";
 import visualContainerStyles from "../sharedcss/VisualContainer.module.css";
 import styles from "./TrendingContent.module.css";
 import Slider, { Settings } from "react-slick";
 import Bookmark from "../bookmark/Bookmark";
 import { useBookmarkManager } from "../../hooks/useBookmarkManager";
+import { useWindowDimensions } from "../../hooks/useWindowDimensions";
+import {
+  MOBILE_SLIDE_COUNT,
+  MOBILE_TABLET_WIDTH_THRESHOLD,
+  TABLET_SLIDE_COUNT,
+} from "../../utils/constants";
 
 interface TrendingContentProps {
   data: MediaObject[];
 }
 
-const sliderSettings: Settings = {
-  focusOnSelect: true,
-  infinite: true,
-  slidesToShow: 2,
-  slidesToScroll: 1,
-  speed: 500,
-  vertical: false,
-  variableWidth: false,
-  arrows: false,
-};
-
-// Focus on Select react-slick
 function TrendingContent({ data }: TrendingContentProps) {
   const { isBookmarked, toggleBookmark } = useBookmarkManager();
+  const windowDimensions = useWindowDimensions();
+
+  const sliderSettings: Settings = {
+    focusOnSelect: true,
+    infinite: true,
+    slidesToShow:
+      windowDimensions.width < MOBILE_TABLET_WIDTH_THRESHOLD
+        ? MOBILE_SLIDE_COUNT
+        : TABLET_SLIDE_COUNT,
+    slidesToScroll: 1,
+    speed: 500,
+    vertical: false,
+    variableWidth: false,
+    arrows: false,
+  };
 
   return (
     <div className={styles.trendingContainer}>
@@ -38,7 +46,11 @@ function TrendingContent({ data }: TrendingContentProps) {
         {data.map((media, index) => (
           <div key={index} className={visualContainerStyles.visualContainer}>
             <img
-              src={media.thumbnail.trending.small}
+              src={
+                windowDimensions.width < MOBILE_TABLET_WIDTH_THRESHOLD
+                  ? media.thumbnail.trending.small
+                  : media.thumbnail.trending.large
+              }
               className={visualContainerStyles.thumbnail}
             />
             <Bookmark

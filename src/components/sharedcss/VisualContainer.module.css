@@ -7,6 +7,11 @@
   width: 100%;
 }
 
+.mediaContainer {
+  display: flex;
+  flex-direction: column;
+}
+
 .mediaContainer:hover .thumbnail {
   filter: brightness(0.5);
 }
@@ -103,4 +108,10 @@
 .playIcon {
   width: 24px;
   height: 24px;
+}
+
+@media only screen and (min-width: 768px) {
+  .mediaContainer {
+    gap: 4px;
+  }
 }

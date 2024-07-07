@@ -1,17 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./Authentication.module.css";
 import LogoIcon from "../../../assets/icons/logo.svg?react";
 import { ChangeEvent, FormEvent, useState } from "react";
 import EmailValidator from "email-validator";
 import { EmailState, InputIdentifier } from "./authUtils";
+import { signup } from "../../../services/apis/authApi";
 
 function SignupPage() {
+  const navigate = useNavigate();
   const [inputText, setInputText] = useState({
     emailAddress: "",
     password: "",
     repeatedPassword: "",
   });
   const [emailState, setEmailState] = useState(EmailState.Valid);
+  const [failedSignupMessage, setFailedSignupMessage] = useState("");
   const [isEmptyPasswordError, setIsEmptyPasswordError] = useState(false);
   const [matchingPasswordError, setMatchingPasswordError] = useState(false);
 
@@ -47,16 +50,17 @@ function SignupPage() {
 
   const validationErrorMessage = () => {
     if (emailState === EmailState.Invalid) {
-        return "Enter a valid email";
+      return "Enter a valid email";
     } else if (matchingPasswordError) {
-        return "Passwords must match";
+      return "Passwords must match";
     } else {
-        return "" // TODO this will also handle pre-existing accounts
+      return failedSignupMessage;
     }
-  }
+  };
 
-  function handleSignup(event: FormEvent<HTMLFormElement>) {
+  async function handleSignup(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setFailedSignupMessage("");
 
     if (inputText.emailAddress === "") {
       setEmailState(EmailState.Empty);
@@ -73,9 +77,9 @@ function SignupPage() {
     }
 
     if (inputText.repeatedPassword !== inputText.password) {
-        setMatchingPasswordError(true);
+      setMatchingPasswordError(true);
     } else {
-        setMatchingPasswordError(false);
+      setMatchingPasswordError(false);
     }
 
     if (
@@ -87,6 +91,20 @@ function SignupPage() {
       return;
 
     // TODO
+    try {
+      const signupResult = await signup(
+        inputText.emailAddress,
+        inputText.password
+      );
+
+      if (!signupResult.success) {
+        setFailedSignupMessage(signupResult.message!);
+      } else {
+        navigate("/login");
+      }
+    } catch (error) {
+      console.log("signup error: ", error);
+    }
   }
 
   return (
@@ -115,6 +133,7 @@ function SignupPage() {
               placeholder={InputIdentifier.Password}
               value={inputText.password}
               onChange={(event) => updateInput(event, InputIdentifier.Password)}
+              type="password"
             />
             <p className={styles.emptyErrorText}>
               {inlineErrorMessage(InputIdentifier.Password)}

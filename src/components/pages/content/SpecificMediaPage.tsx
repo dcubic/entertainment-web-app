@@ -1,4 +1,4 @@
-import { useLoaderData, useOutletContext, useParams } from "react-router-dom";
+import { useOutletContext, useParams } from "react-router-dom";
 import { ChangeEvent, useEffect, useState } from "react";
 import jsonData from "../../../assets/thumbnails/data.json";
 import pageStyles from "./Page.module.css";

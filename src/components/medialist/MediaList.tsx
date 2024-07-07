@@ -5,6 +5,8 @@ import PlayIcon from "../../assets/icons/icon-play.svg?react";
 import DisplayedMediaInfo from "../displayedmediainfo/DisplayedMediaInfo";
 import Bookmark from "../bookmark/Bookmark";
 import { useBookmarkManager } from "../../hooks/useBookmarkManager";
+import { useWindowDimensions } from "../../hooks/useWindowDimensions";
+import { MOBILE_TABLET_WIDTH_THRESHOLD, TABLET_DESKTOP_WIDTH_THRESHOLD } from "../../utils/constants";
 
 interface MediaListProps {
   title: string;
@@ -13,9 +15,12 @@ interface MediaListProps {
 }
 
 function MediaList({ title, data, includeOnlyBookmarked }: MediaListProps) {
+  const windowDimensions = useWindowDimensions();
   const { isBookmarked, toggleBookmark } = useBookmarkManager();
 
-  const filteredData = data.filter((media) => includeOnlyBookmarked ? isBookmarked(media.title) : true )
+  const filteredData = data.filter((media) =>
+    includeOnlyBookmarked ? isBookmarked(media.title) : true
+  );
 
   return (
     <div>
@@ -25,10 +30,15 @@ function MediaList({ title, data, includeOnlyBookmarked }: MediaListProps) {
           <div key={index} className={visualContainerStyles.mediaContainer}>
             <div className={visualContainerStyles.visualContainer}>
               <img
-                src={media.thumbnail.regular.small}
+                src={
+                  windowDimensions.width < MOBILE_TABLET_WIDTH_THRESHOLD
+                    ? media.thumbnail.regular.small
+                    : windowDimensions.width < TABLET_DESKTOP_WIDTH_THRESHOLD 
+                      ? media.thumbnail.regular.medium
+                      : media.thumbnail.regular.large
+                }
                 className={visualContainerStyles.thumbnail}
-              />{" "}
-              {/* Will have to modify this to accomodate size variants */}
+              />
               <Bookmark
                 key={media.title}
                 isBookmarked={() => isBookmarked(media.title)}
