@@ -23,23 +23,41 @@
   background-color: var(--transluscent-midnight-blue);
   border-radius: 50%;
   cursor: pointer;
+  --hover-color: transparent;
+}
+
+.bookmarkContainer[data-status='active'] {
+  --hover-color: var(--midnight-blue);
+}
+
+.bookmarkContainer[data-status='inactive'] {
+  --hover-color: white;
+}
+
+.bookmarkContainer:hover {
+  background-color: var(--hover-color);
 }
 
 .bookmarkIcon path {
   fill-opacity: 1;
 }
 
-.activeBookmark path {
-  background-color: white;
-}
-
-.bookmarkContainer:hover {
-  background-color: white;
-}
-
-.bookmarkContainer:hover .bookmarkIcon path {
+.activeBookmark {
   fill: white;
-  stroke: var(--midnight-blue);
+}
+
+.activeBookmark path {
+  fill: white;
+}
+
+.bookmarkContainer:hover .activeBookmark path {
+  fill: var(--transluscent-midnight-blue);
+  stroke: white;
+}
+
+.bookmarkContainer:hover .inactiveBookmark path {
+  fill: white;
+  stroke: var(--transluscent-midnight-blue);
 }
 
 .visualContainer:hover .playContainer {

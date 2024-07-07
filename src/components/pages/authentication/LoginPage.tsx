@@ -1,11 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./Authentication.module.css";
 import LogoIcon from "../../../assets/icons/logo.svg?react";
 import { ChangeEvent, FormEvent, useState } from "react";
 import EmailValidator from "email-validator";
 import { EmailState, InputIdentifier } from "./authUtils";
+import { login } from "../../../services/apis/authApi";
 
 function LoginPage() {
+  const navigate = useNavigate();
   const [inputText, setInputText] = useState({
     emailAddress: "",
     password: "",
@@ -45,11 +47,11 @@ function LoginPage() {
       if (isEmptyPasswordError) return "Can't be empty";
       return "";
     } else {
-      return ""
+      return "";
     }
   };
 
-  function handleLogin(event: FormEvent<HTMLFormElement>) {
+  async function handleLogin(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     if (inputText.emailAddress === "") {
@@ -74,6 +76,20 @@ function LoginPage() {
       return;
 
     // TODO actually log in
+    try {
+      const loginResult = await login(
+        inputText.emailAddress,
+        inputText.password
+      );
+
+      if (!loginResult.success) {
+        console.log("TODO")
+      } else {
+        navigate('/media')
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -85,7 +101,7 @@ function LoginPage() {
           <div className={styles.inputContainer}>
             <input
               className={styles.input}
-              placeholder={'Email address'}
+              placeholder={"Email address"}
               value={inputText.emailAddress}
               onChange={(event) =>
                 updateInput(event, InputIdentifier.EmailAddress)
@@ -101,9 +117,7 @@ function LoginPage() {
               className={styles.input}
               placeholder={InputIdentifier.Password}
               value={inputText.password}
-              onChange={(event) =>
-                updateInput(event, InputIdentifier.Password)
-              }
+              onChange={(event) => updateInput(event, InputIdentifier.Password)}
             />
             <p className={styles.emptyErrorText}>
               {emptyErrorMessage(InputIdentifier.Password)}

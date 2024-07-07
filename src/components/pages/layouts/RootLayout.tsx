@@ -1,13 +1,14 @@
 import styles from "./Layout.module.css";
 import NavBar from "../../navbar/NavBar.tsx";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLoaderData } from "react-router-dom";
 
 function RootLayout() {
+  const loaderData = useLoaderData();
   return (
     <div className={styles.appContainer}>
       <NavBar />
       <div>
-        <Outlet />
+        <Outlet context={loaderData} />
       </div>
     </div>
   );

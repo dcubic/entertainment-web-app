@@ -1,14 +1,16 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import './slickOverrides.css';
+import "./slickOverrides.css";
 
 import { MediaObject } from "../../assets/thumbnails/MediaObject";
 import DisplayedMediaInfo from "../displayedmediainfo/DisplayedMediaInfo";
 import BookmarkIcon from "../../assets/icons/icon-bookmark-empty.svg?react";
 import PlayIcon from "../../assets/icons/icon-play.svg?react";
-import visualContainerStyles from '../sharedcss/VisualContainer.module.css';
+import visualContainerStyles from "../sharedcss/VisualContainer.module.css";
 import styles from "./TrendingContent.module.css";
-import Slider, { Settings } from 'react-slick';
+import Slider, { Settings } from "react-slick";
+import Bookmark from "../bookmark/Bookmark";
+import { useBookmarkManager } from "../../hooks/useBookmarkManager";
 
 interface TrendingContentProps {
   data: MediaObject[];
@@ -22,11 +24,13 @@ const sliderSettings: Settings = {
   speed: 500,
   vertical: false,
   variableWidth: false,
-  arrows: false
-}
+  arrows: false,
+};
 
 // Focus on Select react-slick
 function TrendingContent({ data }: TrendingContentProps) {
+  const { isBookmarked, toggleBookmark } = useBookmarkManager();
+
   return (
     <div className={styles.trendingContainer}>
       <h1 className={styles.title}>Trending</h1>
@@ -37,14 +41,16 @@ function TrendingContent({ data }: TrendingContentProps) {
               src={media.thumbnail.trending.small}
               className={visualContainerStyles.thumbnail}
             />
-            <div className={visualContainerStyles.bookmarkContainer}>
-              <BookmarkIcon className={visualContainerStyles.bookmarkIcon} />
-            </div>
+            <Bookmark
+              key={media.title}
+              isBookmarked={() => isBookmarked(media.title)}
+              toggleBookmark={() => toggleBookmark(media.title)}
+            />
             <div className={visualContainerStyles.playContainer}>
               <PlayIcon className={visualContainerStyles.playIcon} />
               <p className={visualContainerStyles.playText}>Play</p>
             </div>
-            <DisplayedMediaInfo media={media} isWithin={true}/>
+            <DisplayedMediaInfo media={media} isWithin={true} />
           </div>
         ))}
       </Slider>

@@ -10,26 +10,56 @@ import BookmarksPage from "./components/pages/content/BookmarksPage";
 import LoginPage from "./components/pages/authentication/LoginPage";
 import SignupPage from "./components/pages/authentication/SignupPage";
 import AuthLayout from "./components/pages/layouts/AuthLayout";
+import PrivateRoute from "./components/utils/PrivateRoute";
+import { initialDataLoader } from "./loaders/initialDataLoader";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    loader: initialDataLoader,
+    errorElement: <Navigate to="/login" replace />,
     children: [
       { path: "", element: <Navigate to="/media" replace /> },
-      { path: "/media", element: <HomePage /> },
-      { path: "/media/:type", element: <SpecificMediaPage /> },
-      { path: "media/bookmarks", element: <BookmarksPage /> },
-    ]
+      {
+        path: "/media",
+        children: [
+          {
+            index: true,
+            element: (
+              <PrivateRoute>
+                <HomePage />
+              </PrivateRoute>
+            ),
+          },
+          {
+            path: "/media/:type",
+            element: (
+              <PrivateRoute>
+                <SpecificMediaPage />
+              </PrivateRoute>
+            ),
+          },
+          {
+            path: "/media/bookmarks",
+            element: (
+              <PrivateRoute>
+                <BookmarksPage />
+              </PrivateRoute>
+            ),
+          },
+        ],
+      },
+    ],
   },
   {
-    path: '/',
+    path: "/",
     element: <AuthLayout />,
     children: [
       { path: "/login", element: <LoginPage /> },
       { path: "/signup", element: <SignupPage /> },
-    ]
-  }
+    ],
+  },
 ]);
 
 function App() {

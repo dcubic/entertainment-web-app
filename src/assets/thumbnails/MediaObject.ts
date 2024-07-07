@@ -4,7 +4,7 @@ export interface MediaObject {
     year: number,
     category: string,
     rating: string,
-    isBookmarked: boolean,
+    // isBookmarked: boolean,
     isTrending: boolean
 }
 

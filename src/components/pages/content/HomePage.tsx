@@ -5,10 +5,14 @@ import TrendingContent from '../../trendingcontent/TrendingContent';
 import jsonData from "../../../assets/thumbnails/data.json";
 import { MediaObject } from "../../../assets/thumbnails/MediaObject";
 import styles from './HomePage.module.css';
+import pageStyles from './Page.module.css';
+import { InitialData } from "./contentUtils";
+import { useOutletContext } from "react-router-dom";
 
 // TODO extend Searchable class that has both state and handleSearchBarUpdate
 function HomePage() {
   const [searchString, setSearchString] = useState("");
+  const { mediaData } = useOutletContext() as InitialData;
 
   function handleSearchBarUpdate(event: ChangeEvent<HTMLInputElement>) {
     setSearchString(event.target.value);
@@ -31,7 +35,7 @@ function HomePage() {
   }
   const nameString = "movies or TV series";
   return (
-    <div>
+    <div className={pageStyles.pageContainer}>
       <SearchBar
         nameString={nameString}
         searchString={searchString}
@@ -39,7 +43,7 @@ function HomePage() {
       />
       <div className={styles.contentContainer}>
         <TrendingContent data={trendingMedia} />
-        <MediaList title={determineTitleString()} data={relevantMedia} />
+        <MediaList title={determineTitleString()} data={relevantMedia} includeOnlyBookmarked={false} />
       </div>
     </div>
   );
